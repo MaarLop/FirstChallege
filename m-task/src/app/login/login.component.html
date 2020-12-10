@@ -1,0 +1,43 @@
+<app-loading *ngIf="loading"></app-loading>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-5">
+            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                <div class="card-header"><h3 class="text-center font-weight-light my-4">{{'Login' | translate }}</h3></div> 
+                <div class="card-body">
+                    <form [formGroup]="loginForm">
+                        <div class="form-group">
+                            <mat-form-field>
+                                <mat-label>{{'UserNameOrMail' | translate}}</mat-label>
+                                <input matInput required minlength="4"  formControlName="username">
+                            </mat-form-field>
+                            <div *ngIf="loginForm.get('username').hasError('required') && loginForm.get('username').touched" style="margin-top: -20px;">
+                                <span class="mda-form-msg">Campo es requerido</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <mat-form-field>
+                                <mat-label>{{'Password' | translate}}</mat-label>
+                                <input matInput required minlength="4"  formControlName="password" type="password">
+                            </mat-form-field>
+                            <div *ngIf="loginForm.get('password').hasError('required') && loginForm.get('password').touched" style="margin-top: -20px;">
+                                <span class="mda-form-msg">Campo es requerido</span>
+                            </div>
+                        </div>
+                        <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
+                            <a class="btn btn-primary" (click)="login()">{{'Login' | translate}}</a>
+                            <button mat-button style="padding: 0.3rem;" id="qsLoginBtn" class="nav-link" (click)="loginWithRedirect()" routerLink = '/login'>
+                                <mat-icon style="width: 22px; height: 50px;"
+                                    svgIcon="logo">
+                                </mat-icon> {{ 'LoginWithGoogle' | translate}}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <!-- <div class="card-footer text-center">
+                    <div class="small"><a routerLink="/auth/register">Need an account? Sign up!</a></div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>
