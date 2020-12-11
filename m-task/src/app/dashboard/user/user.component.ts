@@ -45,7 +45,8 @@ export class UserComponent implements OnInit {
     });
     
     dialogRef.afterClosed().subscribe(res => {
-      this.user = new User(sessionStorage.getItem('name'), sessionStorage.getItem('picture'));
+      this.user.avatar =  sessionStorage.getItem('picture');
+      console.log(this.user)
     });
   }
 

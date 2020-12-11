@@ -44,7 +44,7 @@ export class ModalUserComponent implements OnInit {
       avatar: ['']
     });
   }
-  
+
 
   loadInformation(){
     this.userForm.patchValue({
@@ -58,12 +58,12 @@ export class ModalUserComponent implements OnInit {
   }
   saveData() {
     // this.userService.updateInfo(user);
-    sessionStorage.setItem('avatar', this.userForm.get('avatar').value);
+    sessionStorage.setItem('picture', this.userForm.get('avatar').value);
 
     this.snackBar.open('Info actualizada con exito!', '', {
       duration: 3000
     });
-    this.dialogRef.close(this.user);
+    this.dialogRef.close(this.userForm.get('avatar').value);
   }
 
 }
