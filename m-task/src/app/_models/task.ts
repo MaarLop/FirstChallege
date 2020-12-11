@@ -5,6 +5,7 @@ import { ITaskState } from './task-state-state/task.state.interface';
 import { Planned } from './task-state-state/task.state.planned';
 
 export class Task {
+
     id: number;
     name: string;
     description: string;
@@ -49,5 +50,9 @@ export class Task {
 
     getNameOfState(): string{
       return this.state.state;
+    }
+
+    getHours(): number {
+      return this.estimate.getAmauntOfHour();
     }
 }

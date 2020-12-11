@@ -19,8 +19,8 @@ import { Task } from 'src/app/_models/task';
 })
 
 export class TaskListComponent implements OnInit {
-  loading = true;
-  listTask: Task[]=[];
+  listTask: Task[] = [];
+  taskHours: number = 0;
   // listTaskNextToEnd:Task[]=[];
   // listTaskInProgress: Task[] = [];
   // hideUpdate:boolean = true;
@@ -70,22 +70,30 @@ export class TaskListComponent implements OnInit {
   }
   
   getTasks(): void {
-    this.listTask = this.taskService.getAllTask();
+    let [tasks, hours] = this.taskService.getAllTask();
+    this.listTask = tasks;
+    this.taskHours = hours;
     this.reloadTable();
   }
 
   getPlannedTask(): void {
-    this.listTask = this.taskService.getPlannedTask();
+    let [tasks, hours] = this.taskService.getPlannedTask();
+    this.listTask = tasks;
+    this.taskHours = hours;
     this.reloadTable();
   }
 
   getInProgressTask(): void {
-    this.listTask = this.taskService.getInProgressTask();
+    let [tasks, hours] = this.taskService.getInProgressTask();
+    this.listTask = tasks;
+    this.taskHours = hours;
     this.reloadTable();
   }
 
   getClosedTask(): void {
-    this.listTask = this.taskService.getClosedTask();
+    let [tasks, hours] = this.taskService.getClosedTask();
+    this.listTask = tasks;
+    this.taskHours = hours;
     this.reloadTable();
   }
 

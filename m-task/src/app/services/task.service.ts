@@ -30,20 +30,38 @@ export class TaskService {
     ]
   }
 
-  public getAllTask(): Task []{
-    return this.tasks;
+  public getAllTask(): [Task [], number]{
+    const allTask =  this.tasks;
+    let hours = this.getHoursOf(allTask);
+
+    return [allTask, hours];
   }
 
-  public getPlannedTask(): Task []{
-    return this.tasks.filter(task => task.isPlanned());
+  public getPlannedTask(): [Task [], number]{
+    const planedTask = this.tasks.filter(task => task.isPlanned());
+    let hours = this.getHoursOf(planedTask);
+    return [planedTask, hours];
   }
 
-  public getClosedTask(): Task []{
-    return this.tasks.filter(task => task.isCompleted())
+  public getClosedTask(): [Task [], number]{
+    const closedTask =  this.tasks.filter(task => task.isCompleted());
+    let hours = this.getHoursOf(closedTask);
+
+    return [closedTask, hours];
   }
 
-  public getInProgressTask(): Task []{
-    return this.tasks.filter(task => task.isInProgress())
+  public getInProgressTask(): [Task [], number]{
+    const inProgressTask =  this.tasks.filter(task => task.isInProgress());
+    let hours = this.getHoursOf(inProgressTask);
+
+    return [inProgressTask, hours];
+  }
+
+  public getHoursOf (taskList){
+    return taskList.map(task => task.getHours()).reduce(function(a, b)
+    {
+      return a + b;
+    });
   }
 
   createOrUpdateTask(task: any): Task{
