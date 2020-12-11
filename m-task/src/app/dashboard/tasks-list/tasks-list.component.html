@@ -1,0 +1,139 @@
+<div class="container app">
+  
+  <div class="row">
+    <div class="col-sm-12 col-xs-12">
+      <div class="row">
+        <div class="col-sm-6 col-xs-6">
+          <h2>{{'OpenTask'| translate}}</h2> <!-- Traducir -->
+        </div>
+        <div class="col-sm-6 col-xs-6" style="text-align: right;" >
+          <button mat-flat-button color="accent" (click)="createTask()">+</button>
+        </div>
+      </div>
+      
+      <mat-form-field appearance="outline">
+        <mat-label  style="color: whitesmoke;">{{ 'Filter' | translate }}</mat-label>
+        <input matInput (keyup)="applyFilter($event)" #input class="filterInput" style="color: whitesmoke;">
+        <mat-icon matSuffix  style="color: whitesmoke;">search</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label  style="color: whitesmoke;">Status</mat-label>
+        <mat-select [(value)]="selected"  (selectionChange)='onOptionsSelected($event)'>
+          <mat-option value="1">Todos</mat-option>
+          <mat-option value="2">Planned</mat-option>
+          <mat-option value="3">In progress</mat-option>
+          <mat-option value="4">Completed</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div class="mat-elevation-z8">
+        <table class="responsive-table" mat-table [dataSource]="dataSource">
+          
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> {{'Name'|translate}} </th>
+            <td mat-cell *matCellDef="let task"> {{task.name}} </td>
+          </ng-container>
+          
+          <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef> Description </th>
+            <td mat-cell *matCellDef="let task"> {{ task.description }} </td>
+          </ng-container>
+          
+          <!-- <ng-container matColumnDef="endDate">
+            <th mat-header-cell *matHeaderCellDef> {{'EndDate'|translate}} </th>
+            <td mat-cell *matCellDef="let task"> {{task.endDate| currencyDateFormat: translate.currentLang}} </td>
+          </ng-container> -->
+      
+          <ng-container matColumnDef="estimate">
+            <th mat-header-cell *matHeaderCellDef> Estimate </th>
+            <td mat-cell *matCellDef="let task"> {{ task.getEstimationLabel() }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="state">
+            <th mat-header-cell *matHeaderCellDef> State </th>
+            <td mat-cell *matCellDef="let task"> {{ task.getNameOfState() }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef >  </th>
+            <td mat-cell *matCellDef="let task"> 
+              <a class="pointer" ng-show="hoverEdit"  (click)="edittaskt(task.id)" style="color: #3ea4df;  cursor: pointer;" tooltip="{{'Edit' | translate}}">
+                <mat-icon >edit</mat-icon>
+              </a> 
+              <a class="pointer"  style="color:lightcoral; cursor: pointer;" (click)="closeTask(task.id)" tooltip="{{'CloseProyect' | translate}}">
+                <mat-icon>edit_attributes</mat-icon>
+              </a>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+          </tr>
+        </table>
+      
+        <mat-paginator class="responsive-table" [pageSizeOptions]="[ 5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+      </div>
+
+    </div>
+    
+  </div>
+<!--   
+  <div class="row">
+    <div class="col-sm-12 col-xs-12">
+      <div class="row">
+        <div class="col-sm-6 col-xs-6">
+          <h2>{{'Closedtaskts'| translate}} </h2>
+        </div>
+      </div>
+        
+      <div class="mat-elevation-z8">
+        <table class="responsive-table" mat-table [dataSource]="dataSourceEnd">
+          
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> {{'Name'|translate}} </th>
+            <td mat-cell *matCellDef="let task"> {{task.name}} </td>
+          </ng-container>
+          
+          <ng-container matColumnDef="startDate">
+            <th mat-header-cell *matHeaderCellDef> {{'StartDate'|translate}} </th>
+            <td mat-cell *matCellDef="let task"> {{task.startDate | currencyDateFormat: translate.currentLang }} </td>
+          </ng-container>
+          
+          <ng-container matColumnDef="endDate">
+            <th mat-header-cell *matHeaderCellDef> {{'EndDate'|translate}} </th>
+            <td mat-cell *matCellDef="let task"> {{task.endDate| currencyDateFormat: translate.currentLang}} </td>
+          </ng-container>
+      
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef >  </th>
+            <td mat-cell *matCellDef="let task"> 
+              <a class="pointer" ng-show="hoverEdit"  (click)="edittaskt(task.id)" style="color: #3ea4df;  cursor: pointer;" tooltip="{{'Edit' | translate}}">
+                <mat-icon *ngIf="isAdmin" >edit</mat-icon>
+              </a> 
+              <a class="pointer"  style="color:lightcoral; cursor: pointer;" (click)="closeTask(task.id)" tooltip="{{'CloseProyect' | translate}}">
+                <mat-icon *ngIf="isAdmin">edit_attributes</mat-icon>
+              </a>
+              <a class="pointer" style="color:lightslategray;  cursor: pointer;" tooltip="{{'View' | translate}}">
+                <mat-icon>visibility</mat-icon>
+              </a>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+          </tr>
+        </table>
+      
+        <mat-paginator class="responsive-table" [pageSizeOptions]="[ 5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+      </div>
+    
+  </div> -->
+</div>
+
+
+  

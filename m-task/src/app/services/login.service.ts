@@ -12,7 +12,10 @@ export class LoginService {
     constructor(private httpClient: HttpClient) { }
     
     headers = new HttpHeaders({
-        'Content-Type': 'application/json',
+        "Content-Type": 'application/json',
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+       
     });
 
     login(user: any): Observable<any> {
@@ -23,7 +26,7 @@ export class LoginService {
 
     loginWithGoogle(userData: any): Observable<any> {
         return this.httpClient.get(this.basePath, { 
-                headers: this.headers 
+                headers: this.headers
             });
     }
 

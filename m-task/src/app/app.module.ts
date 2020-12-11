@@ -18,7 +18,6 @@ import { CommonModule, formatDate } from '@angular/common';
 import { AngularMaterialModule } from './dashboard/shared/angular-material/angular-material.module';
 import { UserComponent } from './dashboard/user/user.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MessagesComponent } from './dashboard/shared/messages/messages.component';
 import { CreateEditModalComponent } from './dashboard/tasks-list/create-edit-task/modal.component';
 import { MatDialogRef } from '@angular/material/dialog';
 
@@ -69,7 +68,6 @@ export class CurrencyDateFormat implements PipeTransform{
     NavbarComponent,
     LoginComponent,
     UserComponent,
-    MessagesComponent,
     CreateEditModalComponent,
     ModalUserComponent,
     AmountConverterPipe,

@@ -56,6 +56,7 @@ export class LoginComponent implements OnInit {
     });
   }
   login() {
+    console.log('wait')
     var userName= this.loginForm.get('username').value;
     var pass = this.loginForm.get('password').value;
 
@@ -71,6 +72,8 @@ export class LoginComponent implements OnInit {
       });
       return;
     }
+    console.log('wait')
+
     const user: any = {
       nickName: this.loginForm.get('username').value,
       password: this.loginForm.get('password').value
