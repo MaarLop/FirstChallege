@@ -3,7 +3,6 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
-import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-modal-user',
@@ -45,6 +44,7 @@ export class ModalUserComponent implements OnInit {
       avatar: ['']
     });
   }
+  
 
   loadInformation(){
     this.userForm.patchValue({

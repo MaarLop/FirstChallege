@@ -3,7 +3,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/_models/users';
 import { ModalUserComponent } from './modal-user/modal-user.component';
 
@@ -19,7 +18,7 @@ export class UserComponent implements OnInit {
   listDonations: any[] = [];
 
   constructor(public dialog: MatDialog, 
-              public snackBar:MatSnackBar, public userservice : UserService,
+              public snackBar:MatSnackBar,
               private router: Router) 
               {
               }
