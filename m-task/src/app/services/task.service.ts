@@ -82,7 +82,11 @@ console.log(1)
 
   close( idTask: number){
     var taskRes= this.getTakById(idTask);
-    taskRes.close()
+    taskRes.close();
+    
+    let index = this.tasks.indexOf(taskRes);
+    this.tasks[index] = taskRes;
+    return taskRes;
   }
 
   getTakById(idTask: number): Task{
@@ -97,6 +101,10 @@ console.log(1)
   changeTaskState(idTask: number) {
     var task = this.getTakById(idTask);
     task.changeState();
+
+    let index = this.tasks.indexOf(task);
+    this.tasks[index] = task;
+    return task;
   }
 
   delete(idTask: number): Task[] {

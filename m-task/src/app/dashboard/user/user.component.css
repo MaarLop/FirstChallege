@@ -1,0 +1,22 @@
+*{
+    margin: 0;
+    padding: 0;
+  
+  }
+  .example-card {
+    max-width: 100%;
+  }
+  
+  .example-header-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+  }
+  
+  h1{
+    color: antiquewhite;
+    background-color: rgba(0, 0, 0, 0.14);
+    }
+    .col{
+      float: left;
+     width: 50%;
+    }

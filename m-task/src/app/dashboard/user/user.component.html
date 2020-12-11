@@ -1,0 +1,28 @@
+<div class="row">
+  <div class="col-sm-4 col-xs-12">
+  <div class="row">
+    <h1>{{'Profile'|translate}}</h1>
+  </div>
+  <div class="col-sm-10">
+    <mat-card class="example-card"> 
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image">
+          <img mat-card-avatar *ngIf="user.avatar" src="{{user.avatar}}">
+        </div>
+        <mat-card-title> {{user.name}} </mat-card-title>
+        <mat-card-subtitle>{{user.nickName}}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <ul class="list-group ">
+          <li class="list-group-item ">{{'User'|translate}}: {{user.nickName}}</li>
+        </ul>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-flat-button color="accent" (click)="editUserModal()">{{'EditData'|translate}}</button>
+      </mat-card-actions> 
+    </mat-card>
+  </div>
+  </div>
+    
+      
+</div>

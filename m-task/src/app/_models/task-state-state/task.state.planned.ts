@@ -13,7 +13,7 @@ export class Planned implements ITaskState{
         return true;
     }
     canClose(): boolean {
-        return false;
+        return true;
     }
 
 }

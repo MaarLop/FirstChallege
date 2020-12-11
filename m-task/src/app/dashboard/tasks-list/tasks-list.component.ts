@@ -103,11 +103,12 @@ export class TaskListComponent implements OnInit {
   createTask(){
     const dialogRef = this.dialog.open(CreateEditModalComponent, {});
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result)
+      if(result == null){
+        return;
+      }
       let newTask = this.taskService.createOrUpdateTask(result);
       this.listTask.push(newTask);
-      this.dataSource = new MatTableDataSource(this.listTask);
-      this.dataSource._updateChangeSubscription();  
+      this.reloadTable();
     });    
   } 
 
@@ -117,6 +118,9 @@ export class TaskListComponent implements OnInit {
         data: { idTask: idTask, task: task }
       });
     dialogRef.afterClosed().subscribe(result=>{
+      if(result == null){
+        return;
+      }
       let editedTask = this.taskService.createOrUpdateTask(result);
       this.replaceTaskIfItsNecessary(editedTask);
     });
@@ -130,8 +134,6 @@ export class TaskListComponent implements OnInit {
     
     this.listTask[index] = task;
     this.reloadTable()
-    // this.dataSource._updateChangeSubscription();
-
   }
 
   findIndexToUpdate(newItem) { 
@@ -139,7 +141,8 @@ export class TaskListComponent implements OnInit {
   }
 
   changeState(idTask: number){
-    this.taskService.changeTaskState(idTask);
+    var task = this.taskService.changeTaskState(idTask);
+    this.replaceTaskIfItsNecessary(task);
   }
 
   public onOptionsSelected(event) {
@@ -177,6 +180,13 @@ export class TaskListComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  forceClose(taskId){
+    var task = this.taskService.close(taskId);
+    this.replaceTaskIfItsNecessary(task);
+    this.reloadTable();
+
   }
 }
 

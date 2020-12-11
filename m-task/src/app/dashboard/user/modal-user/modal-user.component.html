@@ -1,0 +1,33 @@
+
+<h1 mat-dialog-title>Mis Datos</h1>
+
+<form [formGroup]="userForm">
+  <div class="form-group">
+    <mat-form-field>
+        <mat-label>{{'nickName' | translate}}</mat-label>
+        <input matInput required formControlName="nickName">
+    </mat-form-field>
+  </div>
+  
+  <div class="form-group">
+    <mat-form-field>
+        <mat-label>Avatar</mat-label>
+        <input matInput formControlName="avatar">
+    </mat-form-field>
+  </div>
+
+  <div class="form-group">
+    <mat-form-field>
+        <mat-label>{{'password' | translate}}</mat-label>
+        <input matInput type="password" required  formControlName="password">
+    </mat-form-field>
+  </div>
+  
+</form>
+
+ 
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-flat-button color="accent" cdkFocusInitial
+  type="button" style="margin-left: 10px;" (click)= "saveData()" >Ok</button>
+ </div>

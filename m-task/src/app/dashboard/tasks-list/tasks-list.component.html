@@ -20,7 +20,7 @@
       <mat-form-field appearance="outline">
         <mat-label  style="color: whitesmoke;">Status</mat-label>
         <mat-select [(value)]="selected"  (selectionChange)='onOptionsSelected($event)'>
-          <mat-option value="1">Todos</mat-option>
+          <mat-option value="1">All</mat-option>
           <mat-option value="2">Planned</mat-option>
           <mat-option value="3">In progress</mat-option>
           <mat-option value="4">Completed</mat-option>
@@ -65,7 +65,10 @@
               <a class="pointer" ng-show="hoverEdit"  (click)="editTask(task.id)" style="color: #3ea4df;  cursor: pointer;" tooltip="{{'Edit' | translate}}">
                 <mat-icon >edit</mat-icon>
               </a> 
-              <a class="pointer"  style="color:lightcoral; cursor: pointer;" (click)="closeTask(task.id)" tooltip="{{'CloseProyect' | translate}}">
+              <a class="pointer" *ngIf="task.state.canChangeState()" style="color:rgb(34, 184, 72); cursor: pointer;" (click)="changeState(task.id)" tooltip="{{'ChangeToNextState' | translate}}">
+                <mat-icon>edit_attributes</mat-icon>
+              </a>
+              <a class="pointer" *ngIf="task.state.canClose()" style="color:rgb(211, 57, 57); cursor: pointer;" (click)="forceClose(task.id)" tooltip="{{'CloseTask' | translate}}">
                 <mat-icon>edit_attributes</mat-icon>
               </a>
             </td>
