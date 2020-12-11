@@ -1,18 +1,20 @@
 import { IEstimation } from './estimation.state.interface';
 
 export class DayEstimation implements IEstimation{
-    amaunt: number;
+    amount: number;
+    isHourEstimated: boolean;
 
     constructor(days: number){
-        this.amaunt= days;
+        this.amount= days;
+        this.isHourEstimated = false;
     }
-    getEstimationLavel(): string {
-        var day = this.amaunt == 1 ? 'day' : 'days';
-        return `${this.amaunt} ${day}`;
+    getEstimationLabel(): string {
+        var day = this.amount == 1 ? 'day' : 'days';
+        return `${this.amount} ${day}`;
     }
 
-    getAmauntOfHour(): number {
-        return this.amaunt * 24;
+    getAmountOfHour(): number {
+        return this.amount * 24;
     }
 
     

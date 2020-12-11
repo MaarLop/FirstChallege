@@ -45,7 +45,7 @@ export class Task {
     }
 
     getEstimationLabel():string {
-      return this.estimate.getEstimationLavel();
+      return this.estimate.getEstimationLabel();
     }
 
     getNameOfState(): string{
@@ -53,6 +53,6 @@ export class Task {
     }
 
     getHours(): number {
-      return this.estimate.getAmauntOfHour();
+      return this.estimate.getAmountOfHour();
     }
 }

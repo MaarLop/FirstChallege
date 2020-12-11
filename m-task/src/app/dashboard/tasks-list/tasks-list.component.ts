@@ -21,24 +21,15 @@ import { Task } from 'src/app/_models/task';
 export class TaskListComponent implements OnInit {
   listTask: Task[] = [];
   taskHours: number = 0;
-  // listTaskNextToEnd:Task[]=[];
-  // listTaskInProgress: Task[] = [];
-  // hideUpdate:boolean = true;
 
   displayedColumns: string[] = [ 'name', 'description', 'estimate', 'state', 'action'];
   dataSource: MatTableDataSource<any>;
   selected = '1';
-  // dataSourceEnd: MatTableDataSource<any>;
-  // dataSourceProgress: MatTableDataSource<any>;
 
   private paginatorTask: MatPaginator;
-  // private paginatorTaskNxtToEnd: MatPaginator;
-  // private paginatorInProgress: MatPaginator;
 
   @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
     this.paginatorTask = mp;
-    // this.paginatorTaskNxtToEnd = mp;
-    // this.paginatorInProgress = mp;
     this.setDataSourceAttributes();
   }
 
@@ -52,8 +43,6 @@ export class TaskListComponent implements OnInit {
   ngOnInit(): void {
     this.getTasks();
     this.dataSource = new MatTableDataSource(this.listTask);
-    // this.dataSourceEnd = new MatTableDataSource(this.listTaskNextToEnd);
-    // this.dataSourceProgress = new MatTableDataSource(this.listTaskInProgress)
     if(sessionStorage.getItem('userId') == null){
       this.router.navigate(['/login']);
       return;
@@ -62,8 +51,6 @@ export class TaskListComponent implements OnInit {
 
   setDataSourceAttributes() {
     this.dataSource.paginator = this.paginatorTask;
-    // this.dataSourceEnd.paginator = this.paginatorTaskNxtToEnd;
-    // this.dataSourceProgress.paginator = this.paginatorInProgress;
   }
   switchLang(lang: string) {
     this.translate.use(lang);
@@ -101,7 +88,6 @@ export class TaskListComponent implements OnInit {
     this.listTask = this.taskService.delete(id);
     this.dataSource = new MatTableDataSource(this.listTask);
     this.dataSource._updateChangeSubscription();
-    // this.loading = false;
   };
   
   applyFilter(event: Event) {
@@ -117,6 +103,7 @@ export class TaskListComponent implements OnInit {
   createTask(){
     const dialogRef = this.dialog.open(CreateEditModalComponent, {});
     dialogRef.afterClosed().subscribe(result => {
+      console.log(result)
       let newTask = this.taskService.createOrUpdateTask(result);
       this.listTask.push(newTask);
       this.dataSource = new MatTableDataSource(this.listTask);
@@ -130,7 +117,7 @@ export class TaskListComponent implements OnInit {
         data: { idTask: idTask, task: task }
       });
     dialogRef.afterClosed().subscribe(result=>{
-      let editedTask = this.taskService.createOrUpdateTask(result.data);
+      let editedTask = this.taskService.createOrUpdateTask(result);
       this.replaceTaskIfItsNecessary(editedTask);
     });
 
@@ -142,8 +129,8 @@ export class TaskListComponent implements OnInit {
     let index = this.listTask.indexOf(updateItem);
     
     this.listTask[index] = task;
-    this.dataSource = new MatTableDataSource(this.listTask);
-    this.dataSource._updateChangeSubscription();
+    this.reloadTable()
+    // this.dataSource._updateChangeSubscription();
 
   }
 

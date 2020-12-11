@@ -65,6 +65,8 @@ export class TaskService {
   }
 
   createOrUpdateTask(task: any): Task{
+console.log(1)
+
     if (task.id == 0){
       task.id = this.tasks.length + 1;
       this.tasks.push(task);
@@ -73,8 +75,8 @@ export class TaskService {
     else{
       let currentTask = this.getTakById(task.id)
       let index = this.tasks.indexOf(currentTask);
-      this.tasks[index] = currentTask;
-      return currentTask;
+      this.tasks[index] = task;
+      return task;
     }
   }
 

@@ -5,7 +5,7 @@ export class Completed implements ITaskState{
     nextState: ITaskState;
 
     constructor(){
-        this.state= "InProgress";
+        this.state= "Completed";
         this.nextState = null;
     }
     canChangeState(): boolean {

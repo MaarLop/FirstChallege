@@ -1,8 +1,9 @@
 export interface IEstimation{
-    amaunt: number;
+    amount: number;
+    isHourEstimated:boolean;
     
-    getAmauntOfHour(): number
+    getAmountOfHour(): number
 
-    getEstimationLavel(): string;
+    getEstimationLabel(): string;
 
 }
